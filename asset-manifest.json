@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/dj-wedd/static/css/main.073c9b0a.css",
+    "main.js": "/dj-wedd/static/js/main.b79af60d.js",
+    "static/js/787.bb00900f.chunk.js": "/dj-wedd/static/js/787.bb00900f.chunk.js",
+    "static/media/logo.svg": "/dj-wedd/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/dj-wedd/index.html",
+    "main.073c9b0a.css.map": "/dj-wedd/static/css/main.073c9b0a.css.map",
+    "main.b79af60d.js.map": "/dj-wedd/static/js/main.b79af60d.js.map",
+    "787.bb00900f.chunk.js.map": "/dj-wedd/static/js/787.bb00900f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.b79af60d.js"
+  ]
+}
