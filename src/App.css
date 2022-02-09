@@ -1,5 +1,13 @@
+@font-face {
+  font-family: "PetitFormalScript";
+  src: url("./fonts/PetitFormalScript-Regular.woff2") format("woff2"),
+       url("./fonts/PetitFormalScript-Regular.ttf") format("ttf");
+}
+
 .App {
   text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 .App-logo {
