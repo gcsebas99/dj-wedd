@@ -50,6 +50,8 @@ const getCountdown = () => {
 
 function App() {
   const [inviteCount, setInviteCount] = useState(1);
+  const [inviteData, setInviteData] = useState({});
+  const [confirmacionOk, setConfirmacionOk] = useState(false);
   const [timeLeft, setTimeLeft] = useState([0, 0, 0]);
 
   useEffect(() => {
@@ -65,7 +67,7 @@ function App() {
     });
   }, []); // eslint-disable-line
 
-  const sendEmail = () => {
+  const sendEmail = (body, callback) => {
     console.log('||--send email');
     if(window.Email) {
       window.Email.send({
@@ -75,12 +77,61 @@ function App() {
         To: 'gcsebas99@gmail.com',
         From: "wedd.dani.jorge@gmail.com",
         Subject: "Wedding confirmation!",
-        Body: "Sebastian G 1-1367-0272",
+        Body: body,
       })
         .then(function (message) {
+          callback();
           console.log('||--message', message);
         });
     } 
+  };
+
+  const editName = (i, e) => {
+    let data = inviteData;
+    if(data['invite'+i]){
+      data['invite'+i].name = e.target.value;
+    }else{
+      data['invite'+i] = {name: e.target.value, ced: ''};
+    }
+    setInviteData(data);
+  };
+
+  const editCed = (i, e) => {
+    let data = inviteData;
+    if(data['invite'+i]){
+      data['invite'+i].ced = e.target.value;
+    }else{
+      data['invite'+i] = {name: '', ced: e.target.value};
+    }
+    setInviteData(data);
+  };
+
+  const submitInvites = () => {
+    if(inviteData !== {}) {
+      let body = 'Lista confirmados a la boda:<br /><br />';
+      Object.entries(inviteData).forEach(entry => {
+        const [key, invite] = entry;
+        body += 'Nombre: ' + invite.name + '<br />';
+        body += 'Cedula: ' + invite.ced + '<br />';
+      });
+      body += '<br />--------------------';
+      sendEmail(body, () => {
+        setConfirmacionOk(true);
+      });
+    } 
+  };
+
+  const renderInviteFields = () => {
+    let elements = [];
+    for(let i = 0; i < inviteCount; i++){
+      elements.push(
+        <li style={{display: 'flex', flexDirection: 'column', paddingBottom: 16}}>
+          <input type="text" className="input-confirm" name={'invite-name-'+i} placeholder={'Nombre completo '+(i+1)} onChange={(e) => { editName(i, e)}} style={{marginBottom: 4}}/>
+          <input type="text" className="input-confirm" name={'invite-name-'+i} placeholder={'Número de cédula '+(i+1)} onChange={(e) => { editCed(i, e)}}  />
+        </li>
+      );
+    }
+    return elements;
   };
 
   return (
@@ -92,18 +143,18 @@ function App() {
       </div>
       <div className="horas" style={{paddingTop: '50px'}}>
         <img src={horas1} alt=" " style={{width: '8%', display: 'block', marginLeft: '70%'}} />
-        <div className="counter" style={{display: 'flex', justifyContent: 'center', color: '#706F6F'}}>
+        <div className="counter" style={{display: 'flex', justifyContent: 'center', color: '#706F6F', paddingBottom: 24}}>
           <div className="months">
-            <div style={{paddingBottom: '10px', fontSize: '36px'}}>{("0" + timeLeft[0]).slice(-2)}</div>
-            <div>MESES</div>
+            <div style={{fontFamily: 'MontserratExtraLight', paddingBottom: '10px', fontSize: '36px'}}>{("0" + timeLeft[0]).slice(-2)}</div>
+            <div style={{fontFamily: 'MontserratExtraLight', fontSize: 12, letterSpacing: '2px'}}>MESES</div>
           </div>
           <div className="days" style={{padding: '0 22px'}}>
-            <div style={{paddingBottom: '10px', fontSize: '36px'}}>{("0" + timeLeft[1]).slice(-2)}</div>
-            <div>DÍAS</div>
+            <div style={{fontFamily: 'MontserratExtraLight', paddingBottom: '10px', fontSize: '36px'}}>{("0" + timeLeft[1]).slice(-2)}</div>
+            <div style={{fontFamily: 'MontserratExtraLight', fontSize: 12, letterSpacing: '2px'}}>DÍAS</div>
           </div>
           <div className="hours">
-            <div style={{paddingBottom: '10px', fontSize: '36px'}}>{("0" + timeLeft[2]).slice(-2)}</div>
-            <div>HORAS</div>
+            <div style={{fontFamily: 'MontserratExtraLight', paddingBottom: '10px', fontSize: '36px'}}>{("0" + timeLeft[2]).slice(-2)}</div>
+            <div style={{fontFamily: 'MontserratExtraLight', fontSize: 12, letterSpacing: '2px'}}>HORAS</div>
           </div>
         </div>
         <img src={horas2} alt=" " style={{width: '100%', display: 'block'}} />
@@ -111,31 +162,32 @@ function App() {
       </div>
       <div className="info" style={{position: 'relative'}}>
         <img src={info1} alt="Dani y Jorge" style={{width: '42%', display: 'block', margin: '50px auto 0 auto'}} />
-        <h2>CEREMONIA & RECEPCIÓN</h2>
-        <div className="dat-time" style={{display: 'flex', justifyContent: 'center', color: '#706F6F'}}>
+        <h2 style={{fontFamily: 'Playfair', color: '#706F6F', paddingTop: 26, fontSize: 16, fontWeight: 400}}>CEREMONIA & RECEPCIÓN</h2>
+        <div className="dat-time" style={{display: 'flex', justifyContent: 'center', color: '#706F6F', fontFamily: 'Playfair', paddingTop: 6}}>
           <div>
-            <div style={{fontSize: '36px'}}>20</div>
+            <div style={{fontSize: '36px', lineHeight: '26px'}}>20</div>
           </div>
-          <div className="days" style={{padding: '0 22px'}}>
-            <div style={{paddingBottom: '10px', fontSize: '20px'}}>Marzo</div>
-            <div>2:00pm</div>
+          <div className="days" style={{padding: '0 16px', margin: '0 13px', border: '1px solid #706F6F', borderTop: 'none', borderBottom: 'none'}}>
+            <div style={{fontSize: '16px'}}>Marzo</div>
+            <div style={{fontSize: '13px', lineHeight: '11px'}}>2:00pm</div>
           </div>
           <div>
-            <div style={{fontSize: '36px'}}>22</div>
+            <div style={{fontSize: '36px', lineHeight: '26px'}}>22</div>
           </div>
         </div>
-        <p>Marriott Hotel Hacienda Belén</p>
+        <p style={{fontFamily: 'MontserratExtraLight', fontSize: 12, paddingTop: 18, marginBottom: 0, lineHeight: '4px'}}>Marriott Hotel Hacienda Belén</p>
         <a 
+          style={{fontFamily: 'MontserratExtraLight', fontSize: '10px'}}
           href="https://www.google.com/maps/place/Costa+Rica+Marriott+Hotel+Hacienda+Belen/@9.9872377,-84.1757531,17z/data=!3m1!4b1!4m8!3m7!1s0x8fa0fa32f22d8ef5:0xa2e125b9e9634d7c!5m2!4m1!1i2!8m2!3d9.9872377!4d-84.1735644"
           target="_blank"
         >
           Ver ubicación aquí
         </a>
-        <h2>CÓDIGO DE VESTIMENTA</h2>
-        <p>Vestimenta formal</p>
-        <p>No recomendable tacón aguja</p>
-        <h2>OBSEQUIOS</h2>
-        <p>Nuestro mayor regalo es la compañía,<br />pero si desea hacernos un obsequio.</p>
+        <h2 style={{fontFamily: 'Playfair', color: '#706F6F', paddingTop: 36, fontSize: 16, fontWeight: 400}}>CÓDIGO DE VESTIMENTA</h2>
+        <p style={{fontFamily: 'MontserratExtraLight', fontSize: 12, paddingTop: 4, marginBottom: 0, lineHeight: '8px'}}>Vestimenta formal</p>
+        <p style={{fontFamily: 'MontserratExtraLight', fontSize: 9, marginBottom: 0, lineHeight: '4px'}}>No recomendable tacón aguja</p>
+        <h2 style={{fontFamily: 'Playfair', color: '#706F6F', paddingTop: 36, fontSize: 16, fontWeight: 400}}>OBSEQUIOS</h2>
+        <p style={{fontFamily: 'MontserratExtraLight', fontSize: 12, paddingTop: 4, marginBottom: 0, lineHeight: '20px'}}>Nuestro mayor regalo es la compañía,<br />pero si desea hacernos un obsequio.</p>
         <p>Daniela Rojas Cascante</p>
         <p>Cuenta BAC CR 12345678901234567</p>
         <img src={info2} alt=" " style={{width: '26%', display: 'block', position: 'absolute', right: 0, top: '-12px'}} />
@@ -164,14 +216,20 @@ function App() {
           </div>
         </Carousel>
       </div>
-      <div className="confirmacion" style={{position: 'relative', color: '#FFFFFF'}}>
-        <img src={confirmacion} alt=" " style={{width: '100%', display: 'block', position: 'absolute', left: 0, top: 0, zIndex: '-1'}} />
+      <div className="confirmacion" style={{color: '#FFFFFF', backgroundColor: '#000000', backgroundImage: `url('${process.env.PUBLIC_URL}/confirmacion.jpg')`, backgroundSize: '100% auto', backgroundRepeat: 'no-repeat'}}>
         <h2 style={{marginTop: 0}}>CONFIRMAR ASISTENCIA</h2>
         <p>Para el descanso de los niños y el disfrute<br />de los padres, este evento será solo para adultos.</p>
+        <ul style={{padding: 0, width: '70%', margin: '0 auto'}}>
+          {renderInviteFields()}
+        </ul>
+        {!confirmacionOk && 
+          <button className="confirm-button" onClick={submitInvites}>Confirmar</button>
+        }
+        {confirmacionOk && 
+          <p>Confirmación enviada. Gracias!</p>
+        }
         <p>Confirmar asistencia antes del 20 de Febrero.</p>
         <p><strong>whatsapp:</strong> Dani 88842373 · Jorge 86816085</p>
-        <br />
-        INVITES: {inviteCount}
       </div>
       <div className="despedida">
         <p>Por órdenes de la administración se solicitará<br />código QR o Carné de vacunación en recepción.</p>
@@ -194,13 +252,13 @@ export default App;
 //         </form>
 //       </header>
 
-// QR codes, 1,2,3,4,5,6
+// LISTO: QR codes, 1,2,3,4,5,6
 
 // LISTO: MESES DIAS HORAS  ----> 20 marzo, 1pm  (1647802800)
 
 // LISTO: ver ubicación =>
 
-// buscar carousel
+// LISTO: buscar carousel
 
 // formulario
 

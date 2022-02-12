@@ -1,7 +1,19 @@
 @font-face {
+  font-family: "MontserratExtraLight";
+  src: url("./fonts/Montserrat-ExtraLight.woff2") format("woff2"),
+       url("./fonts/Montserrat-ExtraLight.otf") format("otf");
+}
+
+@font-face {
   font-family: "PetitFormalScript";
   src: url("./fonts/PetitFormalScript-Regular.woff2") format("woff2"),
        url("./fonts/PetitFormalScript-Regular.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Playfair";
+  src: url("./fonts/PlayfairDisplay-VariableFont_wght.woff2") format("woff2"),
+       url("./fonts/PlayfairDisplay-VariableFont_wght.ttf") format("ttf");
 }
 
 .App {
@@ -43,4 +55,28 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.input-confirm {
+  background-color: transparent;
+  color: #FFFFFF;
+  border: none;
+  border-bottom: 1px solid #FFFFFF;
+  padding: 3px 0;
+}
+.input-confirm:focus-visible {
+  outline: none;
+  border-bottom: 2px solid #FFFFFF;
+}
+
+.confirm-button{
+  color: #FFFFFF;
+  border:  1px solid #FFFFFF;
+  background-color: transparent;
+  padding: 2px 16px;
+  border-radius: 11px;
+}
+
+.confirm-button:active{
+  background-color: rgba(255,255,255,0.3);
 }
