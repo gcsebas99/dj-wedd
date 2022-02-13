@@ -1,8 +1,9 @@
 {
   "files": {
-    "main.css": "/dj-wedd/static/css/main.121b9f06.css",
-    "main.js": "/dj-wedd/static/js/main.91b9399e.js",
+    "main.css": "/dj-wedd/static/css/main.3c16a23a.css",
+    "main.js": "/dj-wedd/static/js/main.68c5e528.js",
     "static/js/787.bb00900f.chunk.js": "/dj-wedd/static/js/787.bb00900f.chunk.js",
+    "static/media/aty.mp3": "/dj-wedd/static/media/aty.6d82b9723828a285aa5d.mp3",
     "static/media/carousel1.jpg": "/dj-wedd/static/media/carousel1.59886c727669e3ca85be.jpg",
     "static/media/carousel3.jpg": "/dj-wedd/static/media/carousel3.eb20f4340c11e85606ed.jpg",
     "static/media/horas3.jpg": "/dj-wedd/static/media/horas3.b467d9a0839d0951203e.jpg",
@@ -22,12 +23,12 @@
     "static/media/PetitFormalScript-Regular.woff2": "/dj-wedd/static/media/PetitFormalScript-Regular.55d2fa76170337b3c5df.woff2",
     "static/media/Montserrat-ExtraLight.woff2": "/dj-wedd/static/media/Montserrat-ExtraLight.71bc4ca7ce271aec8fd0.woff2",
     "index.html": "/dj-wedd/index.html",
-    "main.121b9f06.css.map": "/dj-wedd/static/css/main.121b9f06.css.map",
-    "main.91b9399e.js.map": "/dj-wedd/static/js/main.91b9399e.js.map",
+    "main.3c16a23a.css.map": "/dj-wedd/static/css/main.3c16a23a.css.map",
+    "main.68c5e528.js.map": "/dj-wedd/static/js/main.68c5e528.js.map",
     "787.bb00900f.chunk.js.map": "/dj-wedd/static/js/787.bb00900f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.121b9f06.css",
-    "static/js/main.91b9399e.js"
+    "static/css/main.3c16a23a.css",
+    "static/js/main.68c5e528.js"
   ]
 }
