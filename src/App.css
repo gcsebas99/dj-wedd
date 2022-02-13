@@ -16,16 +16,25 @@
        url("./fonts/PlayfairDisplay-VariableFont_wght.ttf") format("ttf");
 }
 
-.App {
+.App-loading {
   text-align: center;
   max-width: 480px;
   margin: 0 auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.App {
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
+  opacity: 0;
 }
+
+.App.fadeIn {
+  transition: opacity 1.3s;
+  opacity: 1;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -57,11 +66,32 @@
   }
 }
 
+.enter-button{
+  color: #706F6F;
+  border:  1px solid #706F6F;
+  background-color: transparent;
+  padding: 2px 16px 4px 16px;
+  border-radius: 12px;
+  font-family: 'Playfair';
+  font-size: 12px;
+}
+
+.playsong {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 18px;
+  padding: 5px 0 0 5px;
+}
+.playsong.playing {
+  padding: 3px 0 0 1px;
+}
+
 .input-confirm {
   background-color: transparent;
   color: #FFFFFF;
   border: none;
-  border-bottom: 1px solid #FFFFFF;
+  border-bottom: 1px solid rgba(255,255,255,0.4);
   padding: 3px 0;
 }
 .input-confirm:focus-visible {
@@ -75,6 +105,8 @@
   background-color: transparent;
   padding: 2px 16px;
   border-radius: 11px;
+  font-family: 'Playfair';
+  font-size: 10px;
 }
 
 .confirm-button:active{
